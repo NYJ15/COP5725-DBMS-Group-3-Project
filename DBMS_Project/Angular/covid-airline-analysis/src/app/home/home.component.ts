@@ -13,6 +13,7 @@ import { __await } from 'tslib';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  // this contains the result rows of our query.
  resultData = {};
    constructor(private query1dta : OracleQuery1ServiceService) { }
 
