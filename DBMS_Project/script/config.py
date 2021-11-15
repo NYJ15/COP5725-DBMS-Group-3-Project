@@ -1,0 +1,12 @@
+# username = 'a.mhaske'
+# password = 'keShH8ZfWWqZnfMYZMKQz29V'
+# dsn = 'oracle.cise.ufl.edu/orcl'
+# database = 'DBMS-57959035'
+# port = 1512
+# encoding = 'UTF-8'
+username = 'username'
+password = 'password'
+dsn = 'oracle.cise.ufl.edu/orcl'
+database = 'DBMS-57959035'
+port = 1512
+encoding = 'UTF-8'
