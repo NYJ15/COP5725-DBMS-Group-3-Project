@@ -1,4 +1,28 @@
 <p>flight-frequency works!</p>
-<div>
-    {{resultData | json}}
-</div>
+<form class="example-form">
+    <input type="text"
+           placeholder="Search for a street"
+           [(ngModel)] = "staename"
+           [formControl]="control"
+           matInput
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelFunc($event)">
+      <mat-option *ngFor="let street of filteredStreets | async"  [value]="street" >
+        {{street}}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+  <h1>{{staename}}</h1>
+  <h2>{{resultData | json}}</h2>
+  <div *ngIf=showGraph>
+        <div style="display: block">
+          <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+          </canvas>
+        </div>
+  </div>
+

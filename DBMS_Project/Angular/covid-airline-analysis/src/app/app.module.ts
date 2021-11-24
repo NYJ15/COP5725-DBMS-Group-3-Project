@@ -7,12 +7,17 @@ import { HomeComponent } from './home/home.component';
 import { ChartsModule } from 'ng2-charts';
 import { UsMapModule } from 'angular-us-map';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule  } from "@angular/forms";
 import { CovidImpactComponent } from './covid-impact/covid-impact.component';
 import { FlightFrequencyComponent } from './flight-frequency/flight-frequency.component';
 import { AirlinePerformanceComponent } from './airline-performance/airline-performance.component';
 import { AirlineManagementComponent } from './airline-management/airline-management.component';
 import { CovidAnalysisComponent } from './covid-analysis/covid-analysis.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +34,14 @@ import { CovidAnalysisComponent } from './covid-analysis/covid-analysis.componen
     HttpClientModule,
     ChartsModule,
     UsMapModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
