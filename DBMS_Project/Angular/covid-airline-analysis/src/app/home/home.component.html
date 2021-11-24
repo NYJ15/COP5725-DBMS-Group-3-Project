@@ -1,14 +1,22 @@
 <div class="flex-container container">
-
   <div class="spanpage">
     <div class="sidebar-left clearfix">
-      <div class="button"> 123</div>
+      <div class="example-button-row center ">
+        <button mat-button [routerLink]="['/flight-frequency']">Flight Frequencies</button>
+        <button mat-button [routerLink]="['/airline-performance']">Airline Performance</button>
+      </div>
     </div>
-    <div class="map-div clearfix">
+    <div class="map-div clearfix center">
       <us-map fillStateColor="red"></us-map>
+      <div class="example-button-row center ">
+        <button mat-button [routerLink]="['/covid-impact']">Covid Impact</button>
+      </div>
     </div>
     <div class="sidebar-right clearfix">
-      <div class="button"> 123</div>
+      <div class="example-button-row center ">
+        <button mat-button [routerLink]="['/airline-management']">Airline Management</button>
+        <button mat-button [routerLink]="['/covid-analysis']">Covid Analysis</button>
+      </div>
     </div>
 
   </div>
