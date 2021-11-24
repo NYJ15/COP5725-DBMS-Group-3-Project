@@ -1,3 +1,47 @@
+// .container{
+//     background-image: url(../../assets/covid.jpeg);
+//     display: flex;
+//     max-height: 75%;
+    
+// }
+
+// .map-disp {
+//     height: 75%;
+// }
+
+.sidebar-left,.sidebar-right,.map-div{
+    float:left;
+}
+.sidebar-left,.sidebar-right{
+    width:10%;
+}
+.map-div{
+    width:80%;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+    
 .container{
+
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+        
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+
+    margin: 0px;
+    padding: 0px;
     background-image: url(../../assets/covid.jpeg);
+    
+    height: 100%;
+    flex-direction: column;
+    overflow: auto;
+
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ChartsModule } from 'ng2-charts';
 import { UsMapModule } from 'angular-us-map';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { CovidImpactComponent } from './covid-impact/covid-impact.component';
 import { FlightFrequencyComponent } from './flight-frequency/flight-frequency.component';
 import { AirlinePerformanceComponent } from './airline-performance/airline-performance.component';
@@ -27,7 +28,8 @@ import { CovidAnalysisComponent } from './covid-analysis/covid-analysis.componen
     AppRoutingModule,
     HttpClientModule,
     ChartsModule,
-    UsMapModule
+    UsMapModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
