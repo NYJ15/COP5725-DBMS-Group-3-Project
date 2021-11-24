@@ -1,20 +1,15 @@
-<div class="container">
- <h1>Trend Analysis of U.S. aviation during covid-19 pandemic </h1>
-{{resultData | json}}
+<div class="flex-container container">
 
-  <us-map fillStateColor = "red">
-   
-</us-map>
-<div style="display: block;">
-    <canvas baseChart width="10" height="4"
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
-    </canvas>
+  <div class="spanpage">
+    <div class="sidebar-left clearfix">
+      <div class="button"> 123</div>
+    </div>
+    <div class="map-div clearfix">
+      <us-map fillStateColor="red"></us-map>
+    </div>
+    <div class="sidebar-right clearfix">
+      <div class="button"> 123</div>
+    </div>
+
   </div>
-  
 </div>
