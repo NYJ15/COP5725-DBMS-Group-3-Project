@@ -11,39 +11,10 @@ app.use(cors());
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
-
-app.get("/home", (req, res, next) => {
-  query = `select * from "NAYAN.JAIN".traveler_throughput where rownum <2`
-  var res1 = dbConnect(query);
-  console.log(res1)
-  res1.then(function (result) {
-    // here you can use the result of promiseB
-    console.log("Hi", result.rows);
-    res.json(result.rows);
-  });
-});
-
-app.post('/flight-frequency', function (req, res) {
-  console.log(req)
-  
-  query1 = `select res1.Number_of_flights, res1.month, res2.Number_of_cases from (select count(f.flight_id) as Number_of_flights, d.month from "NAYAN.JAIN".flights f, "NAYAN.JAIN".dates d 
-  where f.fk_date_id = d.date_id and f.fk_destination_id = 1545 group by d.month order by d.month)res1 JOIN (select sum(f.cases_id) as Number_of_cases, d.month from "NAYAN.JAIN".covid_19_cases f, "NAYAN.JAIN".dates d where f.fk_date_id = d.date_id and f.fk_location_id = 159 group by d.month order by d.month)res2 
-  on res1.month = res2.month
-  `
-  var res1 = dbConnect(query1);
-
-  console.log(res1)
-  res1.then(function(result) {
-    // here you can use the result of promiseB
-    console.log("Hi",result.rows);
-    res.send(result.rows)
-});  
-})
-
-app.post('/airline-management', function (req, res) {
-  console.log(req)
-  
-  query1 = `select res2.Hourly_Flights, res2.DEPTIME, l.city from
+var airlinemanagementPromise = function(req){
+  return new Promise((resolve,reject)=>{
+    query6 =`
+    select res2.Hourly_Flights, res2.DEPTIME, l.city from
   (select COUNT(*) as Hourly_Flights, deptime,  fl.fk_origin_id from 
       (select (cast(Round(CRS_DEP_TIME/100) AS INT)) AS deptime, fk_origin_id, fk_date_id from "NAYAN.JAIN".flights) fl,
   (select * from
@@ -59,31 +30,149 @@ app.post('/airline-management', function (req, res) {
     group by deptime, fl.fk_origin_id 
     order by fl.fk_origin_id
     )res2 JOIN "NAYAN.JAIN".locations l on l.location_id = res2.fk_origin_id
-  `
-  var res1 = dbConnect(query1);
-
+    `
+    console.log(query6);
+    var res1 = dbConnect(query6);
+    
+      resolve(res1);
+  })
+}
+var flightQueryPromise = function(req){
+  return  new Promise((resolve, reject) => {
+    query1 = `SELECT
+    res1.number_of_flights,
+    res1.month,
+    res2.number_of_cases
+  FROM
+         (
+        SELECT
+            COUNT(f.flight_id) AS number_of_flights,
+            d.month
+        FROM
+            "NAYAN.JAIN".flights f,
+            "NAYAN.JAIN".dates   d
+        WHERE
+                f.fk_date_id = d.date_id
+            AND f.fk_destination_id IN(
+              SELECT l.location_id from "NAYAN.JAIN".locations l where l.states = '${req.body.state}'
+              )
+        GROUP BY
+            d.month
+        ORDER BY
+            d.month
+    ) res1
+    JOIN (
+           SELECT
+    
+sum(f.cases) as number_of_cases,
+a.month
+FROM
+    "NAYAN.JAIN".covid_19_cases f, "NAYAN.JAIN".dates a
+WHERE
+        f.fk_location_id IN (
+          SELECT l.location_id from "NAYAN.JAIN".locations l where l.states = '${req.body.state}') And
+        f.fk_date_id = a.DATE_ID AND
+        a.year = 2020
+       group by a.month
+       order by a.month
+        
+    ) res2 ON res1.month = res2.month
+    `
+    console.log(query1);
+    var res1 = dbConnect(query1);
+    
+      resolve(res1);
+    
+  });
+}
+app.get("/home", (req, res, next) => {
+  query = `select * from "NAYAN.JAIN".traveler_throughput where rownum <2`
+  var res1 = dbConnect(query);
   console.log(res1)
-  res1.then(function(result) {
+  res1.then(function (result) {
     // here you can use the result of promiseB
-    console.log("Hi",result.rows);
-    res.send(result.rows)
-});  
+    console.log("Hi", result.rows);
+    res.json(result.rows);
+  });
+});
+
+app.get("/states", (req, res, next) => {
+  query1 = `SELECT distinct states FROM  "NAYAN.JAIN".locations`
+  var res1 = dbConnect(query1);
+  console.log(res1)
+  var oracleResponse = result.rows;
+  var stateName= oracleResponse.map(function(x) { 
+    return { 
+      state: x[0]
+    }; 
+  });
+  var normalizedArray = stateName.map(function(obj) {
+    return obj.state;
+  });
+  res1.then(function (result) {
+    // here you can use the result of promiseB
+    console.log("Hi", normalizedArray);
+    res.json(normalizedArray);
+  });
+});
+
+
+app.post('/flight-frequency', function (req, res) {
+  console.log(req.body.state)
+  flightQueryPromise(req).then(res1 => {
+      // here you can use the result of promiseB
+      console.log("Hi",res1);
+      res.send(res1)
+   
+  },reject=>{
+    console.log(reject);
+  })
+})
+
+app.post('/airline-management', function (req, res) {
+  console.log(req)
+  
+  airlinemanagementPromise(req).then(res1 => {
+    // here you can use the result of promiseB
+    console.log("Hi",res1);
+    res.send(res1)
+ 
+},reject=>{
+  console.log(reject);
+})
 })
 
 app.post('/airline-performance', function (req, res) {
   console.log(req)
   
-  query1 = `SELECT DISTINCT ac.unique_carrier, d.month, count(*)
+  query1 = `SELECT DISTINCT ac.unique_carrier, d.month, count(*) as cancelled_flight
   FROM "NAYAN.JAIN".Flights f, "NAYAN.JAIN".airline_company ac, "NAYAN.JAIN".dates d
   WHERE f.fk_airline_id=ac.airline_id and f.cancelled = 1 and d.date_id=f.fk_date_id
-  GROUP BY ac.unique_carrier, d.month`
+  GROUP BY ac.unique_carrier, d.month
+  order by ac.unique_carrier asc`
   var res1 = dbConnect(query1);
 
-  console.log(res1)
+  //console.log(res1)
+  var airplane ={};
+const mySet1 = new Set()
   res1.then(function(result) {
     // here you can use the result of promiseB
-    console.log("Hi",result.rows);
-    res.send(result.rows)
+    for (a of result.rows) {
+      mySet1.add(a[0]) 
+  }
+  //console.log(mySet1)
+  for (const value of mySet1 ) {
+      flightfrequency =[]
+      for (a of result.rows) {
+          if(a[0] == value){
+              flightfrequency.push(a[2]);
+          }
+      }
+      airplane[value] = flightfrequency
+    }
+    
+    console.log("Hi",airplane);
+    res.send(airplane)
 });  
 })
 
@@ -99,8 +188,18 @@ app.post('/covid-analysis', function (req, res) {
   console.log(res1)
   res1.then(function(result) {
     // here you can use the result of promiseB
-    console.log("Hi",result.rows);
-    res.send(result.rows)
+    var analysis ={};
+
+//console.log(mySet1)
+    for (a of result.rows) {
+       cases = []
+       cases.push(a[1]);
+       cases.push(a[2]);   
+       analysis[a[0]] = cases
+    }
+  
+    console.log("Hi");
+    res.send(analysis)
 });  
 })
 

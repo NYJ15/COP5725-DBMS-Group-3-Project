@@ -2,3 +2,12 @@
 <div>
     {{resultData | json}}
 </div>
+<mat-form-field appearance="fill">
+    <mat-label>Select a month</mat-label>
+    <mat-select [(value)]="selectedMonth">
+      <mat-option *ngFor="let month of months" [value]="month.id">
+        {{month.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <h2>{{selectedMonth}}</h2>
