@@ -12,6 +12,11 @@ export class OracleQuery1ServiceService {
     console.log('Hi');
     return this.httpClient.get(this.query1); }
 
+  getStates(){
+    let query2 = "http://localhost:3000/states";
+    return this.httpClient.get(query2); }
+  
+
    
   postData() { 
     console.log('Hi');
@@ -20,10 +25,10 @@ export class OracleQuery1ServiceService {
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')}); 
   }
 
-  flight_freq() { 
-    console.log('Hi');
+  flight_freq(statename :string) { 
+    console.log('Hi inside service');
     let query2 = "http://localhost:3000/flight-frequency/";
-    let body = {"month":2}
+    let body = {"state":statename}
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')}); 
   }
 
