@@ -20,20 +20,19 @@ var airlinemanagementPromise = function(req){
   (select * from
     (
     select count(f.flight_id) as Number_of_flights, f.fk_origin_id from "NAYAN.JAIN".flights f, "NAYAN.JAIN".dates d 
-    where f.fk_date_id = d.date_id and d.month= 1 
+    where f.fk_date_id = d.date_id and d.month=  '${req.body.month}'
     group by f.fk_origin_id order by Number_of_flights desc
     )
     where rownum < 6) res1,
     "NAYAN.JAIN".dates d1 
     where res1.FK_ORIGIN_ID = fl.fk_origin_id 
-    and fl.fk_date_id = d1.date_id and d1.month= 1 
+    and fl.fk_date_id = d1.date_id and d1.month=  '${req.body.month}'
     group by deptime, fl.fk_origin_id 
     order by fl.fk_origin_id
     )res2 JOIN "NAYAN.JAIN".locations l on l.location_id = res2.fk_origin_id
     `
     console.log(query6);
     var res1 = dbConnect(query6);
-    
       resolve(res1);
   })
 }
@@ -67,7 +66,7 @@ var flightQueryPromise = function(req){
 sum(f.cases) as number_of_cases,
 a.month
 FROM
-    "NAYAN.JAIN".covid_19_cases f, "NAYAN.JAIN".dates a
+    "NAYAN.JAIN".covid_19_case f, "NAYAN.JAIN".dates a
 WHERE
         f.fk_location_id IN (
           SELECT l.location_id from "NAYAN.JAIN".locations l where l.states = '${req.body.state}') And
@@ -121,8 +120,38 @@ app.post('/flight-frequency', function (req, res) {
   console.log(req.body.state)
   flightQueryPromise(req).then(res1 => {
       // here you can use the result of promiseB
-      console.log("Hi",res1);
-      res.send(res1)
+      var airplane =[];
+      cases=[];
+      flight =[];
+
+ct =1
+for(a of res1.rows){
+  for(;ct<7;ct++){
+    if(a[1]!=ct){
+      airplane.push({
+        "cases":0,
+        "flight":0
+      })
+     
+    }
+    else{
+      ct++;
+      break;
+    }
+  }
+  airplane.push({
+    "cases":a[2],
+    "flight":a[0]
+  })  
+}
+airplane.forEach(function (arrayItem) {
+  cases.push(arrayItem.cases);
+  flight.push(arrayItem.flight);
+});
+result["cases"] = cases
+result["flight"] = flight
+      console.log("Hi",result);
+      res.send(result)
    
   },reject=>{
     console.log(reject);
@@ -134,8 +163,36 @@ app.post('/airline-management', function (req, res) {
   
   airlinemanagementPromise(req).then(res1 => {
     // here you can use the result of promiseB
-    console.log("Hi",res1);
-    res.send(res1)
+    var airplane ={};
+const mySet1 = new Set()
+for(a of res1.rows){
+  mySet1.add(a[2]) 
+}
+//console.log(mySet1)
+var ct = 0;
+for (const value of mySet1 ) {
+  flightfrequency =[]
+  //console.log(value);
+  ct=0
+  for (a of res1.rows) {
+    if(a[2] == value){
+      for(;ct<24;ct++){
+        if(a[1]!=ct){
+          flightfrequency.push(0);   
+        }
+        else{
+          ct++;
+          break;
+        }
+      }
+        flightfrequency.push(a[0]);
+      
+    }
+  }
+  airplane[value] = flightfrequency
+}
+    console.log("Hi",airplane);
+    res.send(airplane)
  
 },reject=>{
   console.log(reject);

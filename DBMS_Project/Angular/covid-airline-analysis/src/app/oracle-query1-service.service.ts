@@ -32,10 +32,10 @@ export class OracleQuery1ServiceService {
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')}); 
   }
 
-  airline_mgmt() { 
+  airline_mgmt(month:string) { 
     console.log('Hi');
     let query2 = "http://localhost:3000/airline-management/";
-    let body = {"month":2}
+    let body = {"month":month}
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')}); 
   }
 
