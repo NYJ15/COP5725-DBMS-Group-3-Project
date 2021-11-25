@@ -25,16 +25,13 @@ export class FlightFrequencyComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  flight =[];
-  cases= [];
+  flight:any = [];
+  cases:any= [];
   MONTH= [];
   public barChartLabels = ['January', 'Februrary', 'March', 'April', 'May', 'June'];
   public barChartType: any = 'bar';
   public barChartLegend = true;
-  public barChartData = [
-    {data: this.flight, label: 'Series A'},
-    {data: this.cases, label: 'Series B', type: 'line'}
-  ];
+  public barChartData:any;
 
   ngOnInit(): void {
    this.filteredStreets = this.control.valueChanges.pipe(
@@ -49,15 +46,13 @@ export class FlightFrequencyComponent implements OnInit {
       res => {
         this.resultData = res;
         console.log(this.resultData)
-        if(this.resultData.hasOwnProperty('rows')){
-          this.resultData.rows.forEach((element=[]) => {
-            this.flight.push(element[0])
-            this. MONTH.push(element[1])
-             this.cases.push(element[2])
-          });
-        }
+        this.barChartData = [
+          {data: this.resultData.flight, label: 'Series A'},
+          {data: this.resultData.cases, label: 'Series B', type: 'line'}
+        ];
        this.showGraph = true;}
     );
+   
     
   }
   
