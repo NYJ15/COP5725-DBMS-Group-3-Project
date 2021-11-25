@@ -10,7 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
+import { MatInputModule, } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule  } from "@angular/forms";
 import { CovidImpactComponent } from './covid-impact/covid-impact.component';
 import { FlightFrequencyComponent } from './flight-frequency/flight-frequency.component';
@@ -18,6 +18,8 @@ import { AirlinePerformanceComponent } from './airline-performance/airline-perfo
 import { AirlineManagementComponent } from './airline-management/airline-management.component';
 import { CovidAnalysisComponent } from './covid-analysis/covid-analysis.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
+import { ChartComponent } from './chart/chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FlightFrequencyComponent,
     AirlinePerformanceComponent,
     AirlineManagementComponent,
-    CovidAnalysisComponent
+    CovidAnalysisComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
