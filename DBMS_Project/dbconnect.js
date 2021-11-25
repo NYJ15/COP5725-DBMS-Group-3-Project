@@ -264,20 +264,108 @@ app.post('/covid-analysis', function (req, res) {
 app.post('/covid-impact', function (req, res) {
   console.log(req)
   
-  query1 = `WITH traveller_data(total_travelers, month) as
-  (select sum(t.traveler_throughput), d.month from "NAYAN.JAIN".traveler_throughput t, "NAYAN.JAIN".dates d where t.fk_date_id = d.date_id and year = 2020 group by d.month order by d.month asc),
-  cases_data(total_cases, month) as
-  (select sum(c.cases), d.month from "NAYAN.JAIN".covid_19_cases c, "NAYAN.JAIN".dates d where c.fk_date_id = d.date_id and year = 2020 group by d.month order by d.month asc),
-  vaccination_data(total_vaccinations, month) as
-  (select sum(c.daily_vaccination), d.month from "NAYAN.JAIN".covid_19_vaccination c, "NAYAN.JAIN".dates d where c.fk_date_id = d.date_id and year = 2021 group by d.month order by d.month asc)
-  SELECT * from traveller_data t, cases_data c, vaccination_data v`
+  query1 = `SELECT
+  traveler_throughput,
+  cases,
+  vaccinations,
+  m_month,
+  m_year
+FROM
+  (
+      SELECT
+          *
+      FROM
+          (
+              SELECT
+                  SUM(t.traveler_throughput) AS traveler_throughput,
+                  d.month                    AS m_month,
+                  year                       AS m_year
+              FROM
+                  "NAYAN.JAIN".traveler_throughput t,
+                  "NAYAN.JAIN".dates               d
+              WHERE
+                  t.fk_date_id = d.date_id
+              GROUP BY
+                  d.month,
+                  year
+              ORDER BY
+                  year ASC,
+                  d.month ASC
+          ) res1
+          LEFT JOIN (
+              SELECT
+                  SUM(c.cases) cases,
+                  d.month,
+                  year
+              FROM
+                  "NAYAN.JAIN".covid_19_case c,
+                  "NAYAN.JAIN".dates          d
+              WHERE
+                  c.fk_date_id = d.date_id
+              GROUP BY
+                  d.month,
+                  year
+              ORDER BY
+                  year ASC,
+                  d.month ASC
+          ) res2 ON res1.m_month = res2.month
+                    AND res1.m_year = res2.year
+  ) res3
+  LEFT JOIN (
+      SELECT
+          SUM(c.daily_vaccination) AS vaccinations,
+          d.month,
+          year
+      FROM
+          "NAYAN.JAIN".covid_19_vaccination c,
+          "NAYAN.JAIN".dates                d
+      WHERE
+          c.fk_date_id = d.date_id
+      GROUP BY
+          d.month,
+          year
+      ORDER BY
+          year ASC,
+          d.month ASC
+  ) res4 ON res3.m_year = res4.year
+            AND res3.m_month = res4.month
+ORDER BY
+  m_year ASC,
+  m_month ASC`
   var res1 = dbConnect(query1);
 
   console.log(res1)
   res1.then(function(result) {
+    var flight = [];
+var cases = [];
+var vaccine = [];
+var output ={}
     // here you can use the result of promiseB
-    console.log("Hi",result.rows);
-    res.send(result.rows)
+    for(a of result.rows){
+      if(a[0] == null){
+        flight.push(0)
+      }
+      else{
+        flight.push(a[0])
+      }
+      if(a[1] == null){
+        cases.push(0)
+      }
+      else{
+        cases.push(a[1])
+      }
+      if(a[2] == null){
+        vaccine.push(0)
+      }
+      else{
+        vaccine.push(a[2])
+      }
+      
+    }
+    output["flight"] = flight
+    output["cases"] = cases
+    output["vaccine"] = vaccine
+    res.send(output)
 });  
 })
 
