@@ -1,23 +1,59 @@
-<div class="flex-container container">
-  <div class="spanpage">
-    <div class="sidebar-left clearfix">
-      <div class="example-button-row center ">
-        <button mat-button [routerLink]="['/flight-frequency']">Flight Frequencies</button>
-        <button mat-button [routerLink]="['/airline-performance']">Airline Performance</button>
-      </div>
-    </div>
-    <div class="map-div clearfix center">
-      <div><app-chart></app-chart></div>
-      <div class="example-button-row center ">
-        <button mat-button [routerLink]="['/covid-impact']">Covid Impact</button>
-      </div>
-    </div>
-    <div class="sidebar-right clearfix">
-      <div class="example-button-row center ">
-        <button mat-button [routerLink]="['/airline-management']">Airline Management</button>
-        <button mat-button [routerLink]="['/covid-analysis']">Covid Analysis</button>
-      </div>
-    </div>
+<!--<div class="flex-container container" style="margin-top:50px">-->
+<!--  <div class="spanpage">-->
+<!--    <div class="sidebar-left clearfix">-->
+<!--      <div class="example-button-row center ">-->
+<!--        <button class="button4"  mat-button [routerLink]="['/flight-frequency']">Flight Frequencies</button>-->
+<!--        <button class="button4"  mat-button [routerLink]="['/airline-performance']">Airline Performance</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="map-div clearfix center">-->
+<!--      <div><app-chart></app-chart></div>-->
+<!--      <div class="example-button-row center ">-->
+<!--        <button class="button4"  mat-button [routerLink]="['/covid-impact']">Covid Impact</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="sidebar-right clearfix">-->
+<!--      <div class="example-button-row center ">-->
+<!--        <button class="button4"  mat-button [routerLink]="['/airline-management']">Airline Management</button>-->
+<!--        <button class="button4"  mat-button [routerLink]="['/covid-analysis']">Covid Analysis</button>-->
+<!--      </div>-->
+<!--    </div>-->
 
+<!--  </div>-->
+<!--</div>-->
+
+<div class="container-fluid">
+  <div class="row" style="margin-top: 100px;">
+    <div class="col-sm-6 text-center">
+      <button class="button4" mat-button [routerLink]="['/flight-frequency']">Flight Frequencies</button>
+    </div>
+    <div class="col-sm-6 text-center">
+      <button class="button4" style="margin-left: 30px;" mat-button [routerLink]="['/airline-management']">Airline
+        Management
+      </button>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 130px;">
+    <div class="col-sm-2">
+      <button class="button4" style="margin-left: 20px; margin-top: 20px;" mat-button
+              [routerLink]="['/airline-performance']">Airline Performance
+      </button>
+
+    </div>
+    <div class="col-sm-8">
+      <app-chart>
+      </app-chart>
+
+    </div>
+    <div class="col-sm-2">
+      <button class="button4" style="margin-top: 20px;" mat-button [routerLink]="['/covid-analysis']">Covid Analysis
+      </button>
+
+    </div>
+  </div>
+  <div class="row" style="margin-top: 130px;">
+    <div class="text-center">
+      <button class="button4 " mat-button [routerLink]="['/covid-impact']">Covid Impact</button>
+    </div>
   </div>
 </div>

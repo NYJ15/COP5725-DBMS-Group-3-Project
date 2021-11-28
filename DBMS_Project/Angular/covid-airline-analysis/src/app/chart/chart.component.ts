@@ -60,6 +60,7 @@ export class ChartComponent implements OnInit {
 
     // Set up heat legend
     let heatLegend = chart.createChild(am4maps.HeatLegend);
+//     heatLegend.orientation = "vertical";
     heatLegend.series = polygonSeries;
     heatLegend.align = "right";
     heatLegend.valign = "bottom";
@@ -86,12 +87,27 @@ export class ChartComponent implements OnInit {
     polygonTemplate.nonScalingStroke = true;
     polygonTemplate.strokeWidth = 0.5;
 
-    // Create hover state and set alternative fill color
-    let hs = polygonTemplate.states.create("hover");
-    hs.properties.fill = am4core.color("#3c5bdc");
+    polygonTemplate.fill = am4core.color("#5CAB7D");
+    polygonTemplate.propertyFields.fill = "color";
+    polygonTemplate.events.on("hit", function(ev) {
+      let data = ev.target.dataItem.dataContext;
+      console.log(data);
+      let info = (<HTMLInputElement>document.getElementById("info"));
+      info.innerHTML = "<h3>" + data + " (" + ")</h3>";
+//       if (data) {
+//         info.innerHTML += "<i>No description provided.</i>";
+//       }
+//       else {
+        info.innerHTML += "<i>No description provided.</i>"
+//       }
+    });
 
-    });
-    });
+        // Create hover state and set alternative fill color
+        let hs = polygonTemplate.states.create("hover");
+        hs.properties.fill = am4core.color("#3c5bdc");
+
+        });
+        });
   }
 
   ngOnDestroy() {
