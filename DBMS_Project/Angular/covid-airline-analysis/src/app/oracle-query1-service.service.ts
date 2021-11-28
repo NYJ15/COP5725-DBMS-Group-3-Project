@@ -36,10 +36,9 @@ export class OracleQuery1ServiceService {
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')});
   }
 
-  airline_mgmt(month:string) {
+  airline_mgmt(body:any) {
     console.log('Hi');
     let query2 = "http://localhost:3000/airline-management/";
-    let body = {"month":month}
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')});
   }
 
@@ -50,10 +49,9 @@ export class OracleQuery1ServiceService {
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')});
   }
 
-  covid_analysis() {
+  covid_analysis(body:any) {
     console.log('Hi');
     let query2 = "http://localhost:3000/covid-analysis/";
-    let body = {"month":2}
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')});
   }
 

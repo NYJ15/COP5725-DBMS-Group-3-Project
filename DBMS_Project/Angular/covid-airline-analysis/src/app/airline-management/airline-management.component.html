@@ -1,14 +1,30 @@
 <div class="example-button-row center ">
   <button mat-button [routerLink]="['/home']">BACK</button>
 </div>
-<mat-form-field appearance="fill">
-    <mat-label>Select a month</mat-label>
-    <mat-select [(value)]="selectedMonth" (selectionChange)="changeClient($event)">
-      <mat-option *ngFor="let month of months" [value]="month.id">
-        {{month.value}}
+<div id="lists">
+  <div id="list_one">
+    <h2>Select Month</h2>
+    <mat-form-field appearance="fill">
+        <mat-label>Select a month</mat-label>
+        <mat-select [(value)]="selectedMonth" (selectionChange)="changeClient($event)">
+          <mat-option *ngFor="let month of months" [value]="month.id">
+            {{month.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  </div>
+<div id="list_two">
+  <h2>Select Number of Airports</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Select number of airport</mat-label>
+    <mat-select [(value)]="selectedAirport" (selectionChange)="changeClient($event)">
+      <mat-option *ngFor="let airport of airports" [value]="airport.id">
+        {{airport.value}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+</div>
+</div>
   <div *ngIf=showGraph>
     <div style="display: block">
       <canvas baseChart

@@ -1,6 +1,26 @@
 <div class="example-button-row center ">
   <button mat-button [routerLink]="['/home']">BACK</button>
 </div>
+<h2>Select Year</h2>
+<mat-form-field appearance="fill">
+    <mat-label>Select a Year</mat-label>
+    <mat-select [(value)]="selectedYear" (selectionChange)="changeClient($event)">
+      <mat-option *ngFor="let year of years" [value]="year.id">
+        {{year.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf=showMonth>
+    <h2>Select Month</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Select a month</mat-label>
+      <mat-select [(value)]="selectedMonth" (selectionChange)="changeClient($event)">
+        <mat-option *ngFor="let month of months" [value]="month.id">
+          {{month.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 <div *ngIf=showGraph>
     <div style="display: block">
       <canvas baseChart

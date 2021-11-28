@@ -47,8 +47,8 @@ export class FlightFrequencyComponent implements OnInit {
         this.resultData = res;
         console.log(this.resultData)
         this.barChartData = [
-          {data: this.resultData.flight, label: 'Series A'},
-          {data: this.resultData.cases, label: 'Series B', type: 'line'}
+          {data: this.resultData.flight, label: 'Number of Flights'},
+          {data: this.resultData.cases, label: 'Number of Covid19 cases', type: 'line'}
         ];
        this.showGraph = true;}
     );
