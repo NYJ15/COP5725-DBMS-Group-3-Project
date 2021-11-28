@@ -245,18 +245,20 @@ app.post('/covid-analysis', function (req, res) {
   console.log(res1)
   res1.then(function(result) {
     // here you can use the result of promiseB
-    var analysis ={};
-
-//console.log(mySet1)
-    for (a of result.rows) {
-       cases = []
-       cases.push(a[1]);
-       cases.push(a[2]);   
-       analysis[a[0]] = cases
+    var state = [];
+    var area = [];
+    var cases = [];
+    var response ={}
+    //airplane[state] = []
+    for(a of result.rows){
+      state.push(a[0]);
+        area.push(a[1]);
+        cases.push(a[2]);
     }
-  
-    console.log("Hi");
-    res.send(analysis)
+    response["state"] = state
+    response["area"] = area
+    response["cases"] = cases
+    res.send(response)
 });  
 })
 

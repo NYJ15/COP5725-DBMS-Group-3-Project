@@ -18,9 +18,6 @@ export class CovidAnalysisComponent implements OnInit {
   public barChartLegend = true;
   cases: any=[];
   public barChartData:any = [
-    {
-      data: this.cases, label: 'Population density' ,type:'line'
-    }
   ];
   
 
@@ -29,15 +26,16 @@ export class CovidAnalysisComponent implements OnInit {
   ngOnInit(): void {
     this.query1dta.covid_analysis().subscribe(
       res => {this.resultData = res;
-        Object.keys(this.resultData).forEach(key => {
-          this.barChartLabels.push(key)
-          this.barChartData.push({
-            data: this.resultData[key][0], label: 'Population density'
-          });
-          this.cases.push(this.resultData[key][1])
-      
-  });
-  
+        this.barChartLabels =
+           this.resultData.state
+        
+        this.barChartData.push({
+          data: this.resultData.area, label: 'Avg Poupulation Density' 
+        })
+        this.barChartData.push({
+          data: this.resultData.cases, label: 'Avg covid cases' ,type:'line',fill:false
+        })
+        
   this.showGraph = true;
       }
    );
