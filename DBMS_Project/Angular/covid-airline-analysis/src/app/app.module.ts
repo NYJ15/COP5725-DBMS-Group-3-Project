@@ -19,6 +19,7 @@ import { AirlineManagementComponent } from './airline-management/airline-managem
 import { CovidAnalysisComponent } from './covid-analysis/covid-analysis.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
+import { ChartComponent } from './chart/chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import {MatButtonModule} from '@angular/material/button';
     FlightFrequencyComponent,
     AirlinePerformanceComponent,
     AirlineManagementComponent,
-    CovidAnalysisComponent
+    CovidAnalysisComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,

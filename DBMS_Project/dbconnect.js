@@ -100,10 +100,10 @@ app.get("/states", (req, res, next) => {
   var res1 = dbConnect(query1);
   console.log(res1)
   var oracleResponse = result.rows;
-  var stateName= oracleResponse.map(function(x) { 
-    return { 
+  var stateName= oracleResponse.map(function(x) {
+    return {
       state: x[0]
-    }; 
+    };
   });
   var normalizedArray = stateName.map(function(obj) {
     return obj.state;
@@ -112,6 +112,16 @@ app.get("/states", (req, res, next) => {
     // here you can use the result of promiseB
     console.log("Hi", normalizedArray);
     res.json(normalizedArray);
+  });
+});
+
+
+app.get("/chart", (req, res, next) => {
+  query1 = `select l.state_id, sum(c.cases) from "NAYAN.JAIN".covid_19_case c, "NAYAN.JAIN".dates d, "NAYAN.JAIN".locations l  where c.fk_date_id = d.date_id and c.fk_location_id = l.location_id group by l.state_id order by l.state_id`
+  var res1 = dbConnect(query1);
+  console.log("Chart", res1)
+  res1.then(function (result) {
+   res.send(result)
   });
 });
 
