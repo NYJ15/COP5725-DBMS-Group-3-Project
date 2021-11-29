@@ -27,9 +27,9 @@ export class CovidImpactComponent implements OnInit {
       res => {
         this.resultData = res;
         this.barChartData = [
-          {data: this.resultData.flight, label: 'Flight', fill:false},
-          {data: this.resultData.cases, label: 'Covid 19 Cases',fill:false},
-          {data: this.resultData.vaccine, label: 'Covid 19 Vaccine',fill:false}
+          {data: this.resultData.flight, label: 'Flights', fill:false},
+          {data: this.resultData.cases, label: 'Covid-19 Cases',fill:false},
+          {data: this.resultData.vaccine, label: 'Covid-19 Vaccines',fill:false}
         ];
         this.showGraph = true;
       }

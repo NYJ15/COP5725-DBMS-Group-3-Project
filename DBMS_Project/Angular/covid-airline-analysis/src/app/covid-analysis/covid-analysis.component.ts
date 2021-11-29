@@ -53,7 +53,6 @@ export class CovidAnalysisComponent implements OnInit {
   ct=0;
   constructor(private query1dta : OracleQuery1ServiceService) { }
   changeClient(event:any){
-    console.log("Hi",this.selectedMonth);
     if(this.selectedYear.length > 0){
       this.showMonth = true
     }
@@ -68,18 +67,16 @@ export class CovidAnalysisComponent implements OnInit {
       res => {this.resultData = res;
         this.barChartLabels =
            this.resultData.state
-        
-       
         this.barChartData.push({
-          data: this.resultData.cases, label: 'Avg covid cases' ,type:'line',borderColor: this.rgbColor[1],fill:false
+          data: this.resultData.cases, label: 'Average Covid Cases' ,type:'line',borderColor: this.rgbColor[1],fill:false
         })
         this.barChartData.push({
-          data: this.resultData.area, label: 'Avg Poupulation Density' ,backgroundColor: this.rgbColor[0]
+          data: this.resultData.area, label: 'Average Population Density' ,backgroundColor: this.rgbColor[0]
         })
-        
+
   this.showGraph = true;
       }
-   ); 
+   );
     }
 
   }

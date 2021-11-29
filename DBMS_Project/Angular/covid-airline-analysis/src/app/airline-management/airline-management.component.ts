@@ -46,7 +46,7 @@ export class AirlineManagementComponent implements OnInit {
     {id: '6', value: 'Five'},
     {id: '7', value: 'Six'},
     {id: '8', value: 'Seven'},
-    {id: '9', value: 'Eigth'},
+    {id: '9', value: 'Eight'},
     {id: '10', value: 'Nine'},
     {id: '11', value: 'Ten'},
   ];
@@ -65,7 +65,7 @@ export class AirlineManagementComponent implements OnInit {
       res => {
         this.resultData = res;
         Object.keys(this.resultData).forEach(key => {
-   
+
           this.barChartData.push({
             data: this.resultData[key], label: key, fill:false,  borderColor: this.rgbColor[this.ct],
           })
@@ -78,7 +78,6 @@ export class AirlineManagementComponent implements OnInit {
   constructor(private query1dta : OracleQuery1ServiceService) { }
 
   ngOnInit(): void {
-   
   }
 
 }

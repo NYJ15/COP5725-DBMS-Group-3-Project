@@ -140,8 +140,8 @@ app.get("/states", (req, res, next) => {
 
 app.get("/chart", (req, res, next) => {
   query1 = `WITH cases_and_vaccinations as
-  (select l.state_id, sum(c.cases) as TOTAL_CASES, sum(v.total_vaccination) as TOTAL_VACCINATIONS from "NAYAN.JAIN".covid_19_case c, "NAYAN.JAIN".dates d, "NAYAN.JAIN".locations l , "NAYAN.JAIN".covid_19_vaccination v
-  where c.fk_date_id = d.date_id and c.fk_location_id = l.location_id and v.fk_location_id = l.location_id
+  (select l.state_id, sum(c.cases) as TOTAL_CASES, sum(v.daily_vaccination) as TOTAL_VACCINATIONS from "NAYAN.JAIN".covid_19_case c, "NAYAN.JAIN".dates d, "NAYAN.JAIN".locations l , "NAYAN.JAIN".covid_19_vaccination v
+  where c.fk_date_id = d.date_id and c.fk_location_id = l.location_id and v.fk_location_id = l.location_id and v.fk_date_id = d.date_id
   group by l.state_id 
   order by l.state_id),
   states_with_ids as

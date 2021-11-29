@@ -14,7 +14,7 @@ export class AirlinePerformanceComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels = ['January', 'Februrary', 'March', 'April', 'May', 'June'];
+  public barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June'];
   public barChartType: any = 'bar';
   public barChartLegend = true;
   public barChartData:any = [
@@ -27,7 +27,6 @@ export class AirlinePerformanceComponent implements OnInit {
     this.query1dta.airline_performance().subscribe(
       res => {this.resultData = res;
         Object.keys(this.resultData).forEach(key => {
-   
           this.barChartData.push({
             data: this.resultData[key], label: key,backgroundColor: this.rgbColor[this.ct]
           })
@@ -35,7 +34,6 @@ export class AirlinePerformanceComponent implements OnInit {
   });
   this.showGraph = true;
       }
-     
    );
   }
 
