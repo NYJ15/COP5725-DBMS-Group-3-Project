@@ -19,7 +19,8 @@ export class AirlinePerformanceComponent implements OnInit {
   public barChartLegend = true;
   public barChartData:any = [
   ];
-
+  rgbColor:any[] = ['#4300CE','#8300D2','#0500CA','#0FCE00','#d0e1ad','#D3D900','#DDA000','#E16000','#E51C00','#000000']
+  ct = 0;
   constructor(private query1dta : OracleQuery1ServiceService) { }
 
   ngOnInit(): void {
@@ -28,9 +29,9 @@ export class AirlinePerformanceComponent implements OnInit {
         Object.keys(this.resultData).forEach(key => {
    
           this.barChartData.push({
-            data: this.resultData[key], label: key
+            data: this.resultData[key], label: key,backgroundColor: this.rgbColor[this.ct]
           })
-      
+      this.ct = this.ct +1;
   });
   this.showGraph = true;
       }

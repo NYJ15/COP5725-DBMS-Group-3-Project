@@ -5,6 +5,10 @@ interface Month {
   id: string;
   value: string;
 }
+interface Airport {
+  id: string;
+  value: string;
+}
 @Component({
   selector: 'app-airline-management',
   templateUrl: './airline-management.component.html',
@@ -14,6 +18,7 @@ export class AirlineManagementComponent implements OnInit {
   resultData:any;
   showGraph: boolean=false;
   selectedMonth ="";
+  selectedAirport=6;
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -23,7 +28,8 @@ export class AirlineManagementComponent implements OnInit {
   public barChartLegend = true;
   public barChartData:any = [
   ];
-  rgbColor:any [] = [ 'rgb(75, 192, 192)','rgb(75, 0, 130)','rgb(70, 0, 255)','rgb(0, 0, 255)','rgb(255, 255, 0)']
+  // rgbColor:any [] = [ 'rgb(75, 192, 192)','rgb(75, 0, 130)','rgb(70, 0, 255)','rgb(0, 0, 255)','rgb(255, 255, 0)']
+  rgbColor:any[] = ['#4300CE','#8300D2','#0500CA','#0FCE00','#d0e1ad','#D3D900','#DDA000','#E16000','#E51C00','#000000']
   months:  Month[] = [
     {id: '1', value: 'January'},
     {id: '2', value: 'February'},
@@ -32,13 +38,30 @@ export class AirlineManagementComponent implements OnInit {
     {id: '5', value: 'May'},
     {id: '6', value: 'June'},
   ];
+  airports:  Airport[] = [
+    {id: '2', value: 'One'},
+    {id: '3', value: 'Two'},
+    {id: '4', value: 'Three'},
+    {id: '5', value: 'Four'},
+    {id: '6', value: 'Five'},
+    {id: '7', value: 'Six'},
+    {id: '8', value: 'Seven'},
+    {id: '9', value: 'Eigth'},
+    {id: '10', value: 'Nine'},
+    {id: '11', value: 'Ten'},
+  ];
+
  ct=0;
   changeClient(event:any){
-    console.log("Hi",event.value);
+    console.log("Hi",this.selectedMonth);
     this.resultData ={};
+    let body:any={
+      month:this.selectedMonth,
+      airport: this.selectedAirport
+    }
     this.barChartData =[]
     this.ct = 0;
-    this.query1dta.airline_mgmt(event.value).subscribe(
+    this.query1dta.airline_mgmt(body).subscribe(
       res => {
         this.resultData = res;
         Object.keys(this.resultData).forEach(key => {

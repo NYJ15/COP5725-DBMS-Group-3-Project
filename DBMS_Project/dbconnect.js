@@ -11,6 +11,19 @@ app.use(cors());
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
+var covidanalysisPromise = function(req){
+  return new Promise((resolve,reject)=>{
+    query7 = `
+    WITH cases_data_per_month as
+  (SELECT DISTINCT l.states, AVG(c.cases) as avg_cases  FROM "NAYAN.JAIN".LOCATIONS l, "NAYAN.JAIN".COVID_19_CASE c, "NAYAN.JAIN".dates d WHERE c.fk_date_id = d.date_id and l.Location_id = c.fk_location_id
+  and year = '${req.body.year}' and d.month = '${req.body.month}' GROUP BY l.states ORDER BY l.states)
+  SELECT s.states, s.POPULATION_DENSITY, c.avg_cases FROM cases_data_per_month c, "NAYAN.JAIN".state s WHERE s.states =c.states ORDER BY s.population_density DESC
+    `
+    console.log(query7);
+    var res1 = dbConnect(query7);
+      resolve(res1);
+  })
+}
 var airlinemanagementPromise = function(req){
   return new Promise((resolve,reject)=>{
     query6 =`
@@ -23,7 +36,7 @@ var airlinemanagementPromise = function(req){
     where f.fk_date_id = d.date_id and d.month=  '${req.body.month}'
     group by f.fk_origin_id order by Number_of_flights desc
     )
-    where rownum < 6) res1,
+    where rownum < '${req.body.airport}') res1,
     "NAYAN.JAIN".dates d1 
     where res1.FK_ORIGIN_ID = fl.fk_origin_id 
     and fl.fk_date_id = d1.date_id and d1.month=  '${req.body.month}'
@@ -253,31 +266,31 @@ const mySet1 = new Set()
 
 app.post('/covid-analysis', function (req, res) {
   console.log(req)
+  covidanalysisPromise(req).then(res1 =>{
+    console.log(res1)
   
-  query1 = `WITH cases_data_per_month as
-  (SELECT DISTINCT l.states, AVG(c.cases) as avg_cases  FROM "NAYAN.JAIN".LOCATIONS l, "NAYAN.JAIN".COVID_19_CASES c, "NAYAN.JAIN".dates d WHERE c.fk_date_id = d.date_id and l.Location_id = c.fk_location_id
-  and year = 2020 and d.month = 3 GROUP BY l.states ORDER BY l.states)
-  SELECT s.states, s.POPULATION_DENSITY, c.avg_cases FROM cases_data_per_month c, "NAYAN.JAIN".state s WHERE s.states =c.states ORDER BY s.population_density DESC`
-  var res1 = dbConnect(query1);
-
-  console.log(res1)
-  res1.then(function(result) {
     // here you can use the result of promiseB
     var state = [];
     var area = [];
     var cases = [];
     var response ={}
+    let i = 0
     //airplane[state] = []
     for(a of result.rows){
-      state.push(a[0]);
-        area.push(a[1]);
-        cases.push(a[2]);
+if(i>0){
+  state.push(a[0]);
+  area.push(a[1]/10);
+  cases.push(a[2]);
+}
+i = i +1;
     }
     response["state"] = state
     response["area"] = area
     response["cases"] = cases
     res.send(response)
-});  
+  },reject=>{
+    console.log(reject);
+  })
 })
 
 
@@ -372,7 +385,7 @@ var output ={}
         cases.push(0)
       }
       else{
-        cases.push(a[1])
+        cases.push(a[1]*10)
       }
       if(a[2] == null){
         vaccine.push(0)
