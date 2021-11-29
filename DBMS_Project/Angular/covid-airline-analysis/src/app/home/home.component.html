@@ -23,37 +23,52 @@
 <!--</div>-->
 
 <div class="container-fluid">
-  <div class="row" style="margin-top: 100px;">
+  <div class="row" style="margin-top: 80px;">
     <div class="col-sm-6 text-center">
-      <button class="button4" mat-button [routerLink]="['/flight-frequency']">Flight Frequencies</button>
+      <button class="button4" mat-button [routerLink]="['/flight-frequency']">
+        <i class="fa fa-plane" aria-hidden="true"></i>
+
+        Flight Frequencies
+      </button>
     </div>
     <div class="col-sm-6 text-center">
-      <button class="button4" style="margin-left: 30px;" mat-button [routerLink]="['/airline-management']">Airline
-        Management
+      <button class="button4" style="margin-left: 30px;" mat-button [routerLink]="['/airline-management']">
+
+        <i class="fas fa-tasks"></i>
+        Airline Management
       </button>
     </div>
   </div>
-  <div class="row" style="margin-top: 130px;">
-    <div class="col-sm-2">
-      <button class="button4" style="margin-left: 20px; margin-top: 20px;" mat-button
-              [routerLink]="['/airline-performance']">Airline Performance
-      </button>
+</div>
+<div style="margin-top: 90px;">
+  <div class="col-sm-2">
+    <button class="button4" style="margin-left: 20px; margin-top: 90px;" mat-button
+            [routerLink]="['/airline-performance']">
+      <i class="fas fa-angle-double-up"></i>
+      Airline Performance
+    </button>
 
-    </div>
-    <div class="col-sm-8">
-      <app-chart>
-      </app-chart>
-
-    </div>
-    <div class="col-sm-2">
-      <button class="button4" style="margin-top: 20px;" mat-button [routerLink]="['/covid-analysis']">Covid Analysis
-      </button>
-
-    </div>
   </div>
-  <div class="row" style="margin-top: 130px;">
+  <div class="col-sm-8">
+    <app-chart>
+    </app-chart>
+
+  </div>
+  <div class="col-sm-2">
+    <button class="button4" style="margin-top: 90px;" mat-button [routerLink]="['/covid-analysis']">
+      <i class="fas fa-chart-bar"></i>
+      Covid Analysis
+    </button>
+
+  </div>
+</div>
+<div style="margin-top: 32%;">
+  <div class="row">
     <div class="text-center">
-      <button class="button4 " mat-button [routerLink]="['/covid-impact']">Covid Impact</button>
+      <button class="button4 " mat-button [routerLink]="['/covid-impact']">
+         <i class="fas fa-ambulance"></i>
+        Covid Impact
+      </button>
     </div>
   </div>
 </div>

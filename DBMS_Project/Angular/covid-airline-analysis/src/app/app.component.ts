@@ -7,7 +7,7 @@ import { HomeComponent } from '../app/home/home.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+
   constructor(){}
   title = 'covid-airline-analysis';
 }

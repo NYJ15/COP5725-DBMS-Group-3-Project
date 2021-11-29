@@ -62,6 +62,11 @@ export class OracleQuery1ServiceService {
     return this.httpClient.post(query2, body,{headers: new HttpHeaders ().set('Content-Type','application/json')});
   }
 
+  getDetails(){
+    let query2 = "http://localhost:3000/total/";
+    return this.httpClient.get(query2);
+
+  }
 
 
 

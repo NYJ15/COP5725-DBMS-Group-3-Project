@@ -1,19 +1,29 @@
 #lists {
 
     position: relative;
-    width: 40%;
-    display:inline-block
+//     width: 40%;
+    font-family: Times New Roman;
+//     display:inline-block
    }
-   
+
    #list_one {
-    width: 50%;
-   
-    float:left;
+//     width: 50%;
+    font-family: Times New Roman;
+    padding-right:0.80em;
+//     float:left;
    }
-   
+
    #list_two {
-    width: 50%;
-   
-    position: relative;
-    float:right;
+//     width: 50%;
+    font-family: Times New Roman;
+    padding-left:1.50em;
+//     position: relative;
+//     float:right;
    }
+
+h2 {
+    font-family: Times New Roman;
+    font-size: 20px;
+    padding-right:0.80em;
+
+  }

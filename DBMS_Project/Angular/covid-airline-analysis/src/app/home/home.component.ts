@@ -15,6 +15,9 @@ import { __await } from 'tslib';
 export class HomeComponent implements OnInit {
   // this contains the result rows of our query.
  resultData = {};
+ totalData : any;
+ totals : any;
+ total_count : any;
    constructor(private query1dta : OracleQuery1ServiceService) { }
 
     // make sure to reference the correct structure
@@ -43,7 +46,7 @@ export class HomeComponent implements OnInit {
     .attr('d', <any> path)
     .attr("class", "world-map");
 }
- 
+
    public lineChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
   ];
@@ -68,6 +71,23 @@ export class HomeComponent implements OnInit {
     this.query1dta.getData().subscribe(
       res => this.resultData = res
    );
+
+   this.query1dta.getDetails().subscribe(
+      res => {
+      this.totalData = res;
+      console.log(this.totalData)
+      this.totals = [];
+      let total_count = 0;
+      for (let item of this.totalData['rows']) {
+          this.totals.push({
+               table: item[0],
+               count: item[1]
+          });
+          this.total_count = item[2]
+        }
+        console.log(this.totals);
+        console.log(this.total_count);
+        });
   }
 
 }

@@ -1,9 +1,22 @@
 .example-form {
-    min-width: 150px;
+    min-width: 100px;
     max-width: 500px;
     width: 100%;
+    font-family: Times New Roman;
   }
-  
+
   .example-full-width {
     width: 100%;
+    font-family: Times New Roman;
+  }
+
+  h2 {
+    font-family: Times New Roman;
+    font-size: 20px;
+    padding-right:0.80em;
+
+  }
+
+  input {
+    height: 33px;
   }

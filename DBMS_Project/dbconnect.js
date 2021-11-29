@@ -108,6 +108,15 @@ app.get("/home", (req, res, next) => {
   });
 });
 
+app.get("/total", (req, res, next) => {
+  query1 = `select a.*, b.* from (select sum(NUM_ROWS) from (select table_name, num_rows from all_tables where owner = 'NAYAN.JAIN')) b, (select table_name, num_rows from all_tables where owner = 'NAYAN.JAIN') a`
+  var res1 = dbConnect(query1);
+  console.log(res1)
+  res1.then(function (result) {
+    res.send(result);
+  });
+});
+
 app.get("/states", (req, res, next) => {
   query1 = `SELECT distinct states FROM  "NAYAN.JAIN".locations`
   var res1 = dbConnect(query1);

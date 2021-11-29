@@ -1,23 +1,29 @@
-<head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script></head>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+<!--  <script src="https://your-site-or-cdn.com/fontawesome/v6.0.0-beta3/js/all.js" data-auto-replace-svg="nest"></script>-->
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
 
+</head>
 <div class="container">
-    <div class="header">
-        <div class="center-title"><p style="color: white;">Covid19 Airline Analysis</p></div>
-<!--        &lt;!&ndash; <nav>-->
-<!--            <a routerLink="/home" routerLinkActive="active">Home</a>-->
-<!--            <a routerLink="/about" routerLinkActive="active">About</a>-->
-<!--        </nav> &ndash;&gt;-->
+  <div class="header">
+    <div>
+      <p style="color: white; font-family: Times New Roman; font-size: 25px; ">
+        <i class="fas fa-home fa-sm" style="color: white; margin-right: 38%;" [routerLink]="['/home']"></i>
+        Covid-19 Airline Analysis
+      </p>
     </div>
-    <div class="content">
-        <router-outlet></router-outlet>
-    </div>
-  <div id="info" data-toggle="modal" data-target="#myModal">
-
+    <!--        &lt;!&ndash; <nav>-->
+    <!--            <a routerLink="/home" routerLinkActive="active">Home</a>-->
+    <!--            <a routerLink="/about" routerLinkActive="active">About</a>-->
+    <!--        </nav> &ndash;&gt;-->
   </div>
-
-    <div class="footer">
-
-    </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="footer">
+  </div>
 </div>
