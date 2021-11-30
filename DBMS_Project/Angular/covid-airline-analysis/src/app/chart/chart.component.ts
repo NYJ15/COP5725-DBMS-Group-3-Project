@@ -103,38 +103,17 @@ export class ChartComponent implements OnInit {
           polygonTemplate.fill = am4core.color("#5CAB7D");
           polygonTemplate.propertyFields.fill = "color";
 
-          // polygonTemplate.events.on("hit", function(ev) {
-          //   // window.location.href='http://localhost:4200/airline-management';
-
-          //   this.route.navigate(['/airline-management']); 
-            
-          // }, this);
-          // polygonTemplate.events.on("hit", function(ev) {
-          //   const dialogRef = this.dialog.open(PieModalComponent, {
-          //     width: '400px',
-          //     height: '300px',
-          //     data: {
-          //       grup: ev.target.dataItem.index,
-          //       from: 'from test'
-          //     }
-          //   });
-          //   dialogRef.afterClosed().subscribe(result => {
-          //     console.log('The dialog was closed');
-          //   });
-          // }, this);
-
-
-
           polygonTemplate.events.on("hit", function(ev) {
             chart.closeAllPopups();
-            console.log(ev.target.dataItem.dataContext)
-            let popup = chart.openPopup("Total Cases: <strong>" + JSON.stringify(ev.target.dataItem.dataContext).split(',')[2].split(':')[1] + "</strong><br>\
+            let popup = chart.openPopup(
+            "State: <strong>" + JSON.stringify(ev.target.dataItem.dataContext).split(',')[0].split(':')[1].split('-')[1].split('"')[0] + "</strong><br>\
+            Total Cases: <strong>" + JSON.stringify(ev.target.dataItem.dataContext).split(',')[2].split(':')[1] + "</strong><br>\
             Total Vaccinations: <strong>" + JSON.stringify(ev.target.dataItem.dataContext).split(',')[3].split(':')[1] + "</strong><br>\
-            Population Density: <strong>" + JSON.stringify(ev.target.dataItem.dataContext).split(',')[4].split(':')[1] + "</strong><br>");
+            Population Density (mi<sup>2</sup>): <strong>" + JSON.stringify(ev.target.dataItem.dataContext).split(',')[4].split(':')[1] + "</strong><br>");
             // popup.left = ev.svgPoint.x + 15;
             // popup.top = ev.svgPoint.y + 15;
           });
-        
+
           // Create hover state and set alternative fill color
           let hs = polygonTemplate.states.create("hover");
           hs.properties.fill = am4core.color("#3c5bdc");

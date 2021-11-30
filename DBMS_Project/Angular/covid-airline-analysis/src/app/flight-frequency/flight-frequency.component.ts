@@ -28,7 +28,7 @@ export class FlightFrequencyComponent implements OnInit {
   flight:any = [];
   cases:any= [];
   MONTH= [];
-  public barChartLabels = ['January', 'Februrary', 'March', 'April', 'May', 'June'];
+  public barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June'];
   public barChartType: any = 'bar';
   public barChartLegend = true;
   public barChartData:any;
@@ -38,24 +38,23 @@ export class FlightFrequencyComponent implements OnInit {
     startWith(''),
     map(value => this._filter(value)),
   );
-  
+
   }
   onSelFunc(event: any){
     console.log("In click",event.option.value);
     this.query1dta.flight_freq(event.option.value).subscribe(
       res => {
         this.resultData = res;
-        console.log(this.resultData)
         this.barChartData = [
           {data: this.resultData.flight, label: 'Number of Flights'},
-          {data: this.resultData.cases, label: 'Number of Covid19 cases', type: 'line'}
+          {data: this.resultData.cases, label: 'Number of Covid-19 cases', type: 'line'}
         ];
        this.showGraph = true;}
     );
-   
-    
+
+
   }
-  
+
   private _filter(value: string): string[] {
     const filterValue = this._normalizeValue(value);
     return this.streets.filter(street => this._normalizeValue(street).includes(filterValue));

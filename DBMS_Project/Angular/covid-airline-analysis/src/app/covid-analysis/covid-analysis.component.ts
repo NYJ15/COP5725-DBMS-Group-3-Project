@@ -38,12 +38,12 @@ export class CovidAnalysisComponent implements OnInit {
     {id: '4', value: 'April'},
     {id: '5', value: 'May'},
     {id: '6', value: 'June'},
-    {id: '1', value: 'July'},
-    {id: '2', value: 'August'},
-    {id: '3', value: 'September'},
-    {id: '4', value: 'October'},
-    {id: '5', value: 'November'},
-    {id: '6', value: 'December'}
+    {id: '7', value: 'July'},
+    {id: '8', value: 'August'},
+    {id: '9', value: 'September'},
+    {id: '10', value: 'October'},
+    {id: '11', value: 'November'},
+    {id: '12', value: 'December'}
   ];
   years:  Year[] = [
     {id: '2021', value: '2021'},
@@ -68,7 +68,7 @@ export class CovidAnalysisComponent implements OnInit {
         this.barChartLabels =
            this.resultData.state
         this.barChartData.push({
-          data: this.resultData.cases, label: 'Average Covid Cases' ,type:'line',borderColor: this.rgbColor[1],fill:false
+          data: this.resultData.cases, label: 'Average Covid-19 Cases' ,type:'line',borderColor: this.rgbColor[1],fill:false
         })
         this.barChartData.push({
           data: this.resultData.area, label: 'Average Population Density' ,backgroundColor: this.rgbColor[0]
