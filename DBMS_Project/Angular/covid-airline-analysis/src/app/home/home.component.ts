@@ -76,17 +76,21 @@ export class HomeComponent implements OnInit {
       res => {
       this.totalData = res;
       console.log(this.totalData)
-      this.totals = [];
       let total_count = 0;
+      this.totals  = new Map<string, string>();
+
       for (let item of this.totalData['rows']) {
-          this.totals.push({
-               table: item[0],
-               count: item[1]
-          });
+          // this.totals.push({
+          //      table: item[0],
+          //      count: item[1]
+          // });
+          this.totals.set(item[0], item[1])
+
           this.total_count = item[2]
         }
-        console.log(this.totals);
+        console.log(this.totals.get('AIRLINE_COMPANY'));
         console.log(this.total_count);
+
         });
   }
 

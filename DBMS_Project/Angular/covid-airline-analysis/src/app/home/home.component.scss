@@ -84,3 +84,25 @@
     margin:0.2em auto;
   }
 }
+
+.icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.icon i {
+  font-size: 2.25rem;
+}
+
+.icon-shape {
+  display: inline-flex;
+  padding: 12px;
+  text-align: center;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-shape i {
+  font-size: 1.00rem;
+}
