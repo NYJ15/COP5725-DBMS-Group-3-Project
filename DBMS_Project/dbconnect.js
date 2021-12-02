@@ -139,15 +139,69 @@ app.get("/states", (req, res, next) => {
 
 
 app.get("/chart", (req, res, next) => {
-  query1 = `WITH cases_and_vaccinations as
-  (select l.state_id, sum(c.cases) as TOTAL_CASES, sum(v.daily_vaccination) as TOTAL_VACCINATIONS from "NAYAN.JAIN".covid_19_case c, "NAYAN.JAIN".dates d, "NAYAN.JAIN".locations l , "NAYAN.JAIN".covid_19_vaccination v
-  where c.fk_date_id = d.date_id and c.fk_location_id = l.location_id and v.fk_location_id = l.location_id and v.fk_date_id = d.date_id
-  group by l.state_id 
-  order by l.state_id),
-  states_with_ids as
-  (SELECT state_id, s.population_density from "NAYAN.JAIN".state s, "NAYAN.JAIN".locations l  WHERE l.states = s.states group by state_id, s.population_density)
-  SELECT st.state_id,TOTAL_CASES,TOTAL_VACCINATIONS, st.population_density  FROM cases_and_vaccinations cv , states_with_ids st
-  WHERE st.state_id = cv.state_id`
+  query1 = `
+  WITH cases_and_vaccinations AS (
+    SELECT
+        ca.state_id,
+        ca.total_cases,
+        va.total_vaccinations
+    FROM
+        (
+            SELECT
+                l.state_id,
+                SUM(c.cases) AS total_cases
+            FROM
+                "NAYAN.JAIN".covid_19_case c,
+                "NAYAN.JAIN".dates         d,
+                "NAYAN.JAIN".locations     l
+            WHERE
+                    c.fk_date_id = d.date_id
+                AND c.fk_location_id = l.location_id
+            GROUP BY
+                l.state_id
+        ) ca LEFT OUTER JOIN
+        (
+            SELECT
+                l.state_id,
+                SUM(c.daily_vaccination) AS total_vaccinations
+            FROM
+                "NAYAN.JAIN".covid_19_vaccination c,
+                "NAYAN.JAIN".dates                d,
+                "NAYAN.JAIN".locations            l
+            WHERE
+                    c.fk_date_id = d.date_id
+                AND c.fk_location_id = l.location_id
+            GROUP BY
+                l.state_id
+        ) va
+    ON
+        ca.state_id = va.state_id
+    ORDER BY
+        ca.state_id
+), states_with_ids AS (
+    SELECT
+        state_id,
+        s.population_density
+    FROM
+        "NAYAN.JAIN".state     s,
+        "NAYAN.JAIN".locations l
+    WHERE
+        l.states = s.states
+    GROUP BY
+        state_id,
+        s.population_density
+)
+SELECT
+    st.state_id,
+    total_cases,
+    total_vaccinations,
+    st.population_density
+FROM
+    cases_and_vaccinations cv,
+    states_with_ids        st
+WHERE
+    st.state_id = cv.state_id
+    `
   var res1 = dbConnect(query1);
   console.log("Chart", res1)
   res1.then(function (result) {
