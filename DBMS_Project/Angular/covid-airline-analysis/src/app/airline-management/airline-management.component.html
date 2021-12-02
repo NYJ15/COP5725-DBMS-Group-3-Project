@@ -3,18 +3,31 @@
 <!--</div>-->
 <div id="lists" style="display: flex;">
   <div id="list_one" style="display: flex;">
-    <h2>Select Month: </h2>
+    <h2 style="font-family: Times New Roman;"> Month: </h2>
     <mat-form-field appearance="fill">
         <mat-label>Select a Month</mat-label>
         <mat-select [(value)]="selectedMonth" (selectionChange)="changeClient($event)">
-          <mat-option *ngFor="let month of months" [value]="month.id">
+          <mat-option *ngFor="let month of months" [value]="month.id" >
             {{month.value}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <!-- <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Select a month here
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="google.com">Action</a>
+          <a class="dropdown-item" href="google.com">Another action</a>
+          <a class="dropdown-item" href="google.com">Something else here</a>
+        </div>
+      </div> -->
+      
+
   </div>
 <div id="list_two" style="display: flex;">
-  <h2>Select Number of Airports: </h2>
+  <h2 style="font-family: Times New Roman;">Number of airports: </h2>
   <mat-form-field appearance="fill">
     <mat-label>Select Number of Airports</mat-label>
     <mat-select [(value)]="selectedAirport" (selectionChange)="changeClient($event)">
@@ -24,8 +37,22 @@
     </mat-select>
   </mat-form-field>
 </div>
+
+<!-- 
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select number of airports
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="google.com">Action</a>
+    <a class="dropdown-item" href="google.com">Another action</a>
+    <a class="dropdown-item" href="google.com">Something else here</a>
+  </div>
+</div> -->
+
+
 </div>
-  <div *ngIf=showGraph>
+  <div *ngIf=showGraph class="container">
     <div style="display: block">
       <canvas baseChart
               [datasets]="barChartData"
@@ -37,3 +64,4 @@
       </canvas>
     </div>
 </div>
+
