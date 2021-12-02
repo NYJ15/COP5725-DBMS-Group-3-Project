@@ -9,6 +9,7 @@ import { FlightFrequencyComponent } from './flight-frequency/flight-frequency.co
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'airline-management', component: AirlineManagementComponent },
   { path: 'airline-performance', component: AirlinePerformanceComponent },
