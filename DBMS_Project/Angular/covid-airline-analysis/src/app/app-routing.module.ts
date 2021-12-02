@@ -9,7 +9,7 @@ import { FlightFrequencyComponent } from './flight-frequency/flight-frequency.co
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'airline-management', component: AirlineManagementComponent },
   { path: 'airline-performance', component: AirlinePerformanceComponent },
@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'covid-impact', component: CovidImpactComponent },
   { path: 'flight-frequency', component: FlightFrequencyComponent },
   { path: 'chart', component: ChartComponent },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
