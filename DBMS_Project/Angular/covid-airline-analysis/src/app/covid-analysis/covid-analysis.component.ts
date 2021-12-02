@@ -23,7 +23,23 @@ export class CovidAnalysisComponent implements OnInit {
   showMonth:boolean = false;
   public barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'States',
+          
+        }
+      }],
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Average Covid-19 Cases / Average Population Density',
+          
+        }
+      }]
+    }     
   };
   public barChartLabels:any = [];
   public barChartType: any = 'bar';

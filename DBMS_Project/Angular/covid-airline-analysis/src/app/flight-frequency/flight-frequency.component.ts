@@ -23,7 +23,23 @@ export class FlightFrequencyComponent implements OnInit {
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Months',
+          
+        }
+      }],
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Number of Covid-19 Cases / Flights',
+          
+        }
+      }]
+    }     
   };
   flight:any = [];
   cases:any= [];

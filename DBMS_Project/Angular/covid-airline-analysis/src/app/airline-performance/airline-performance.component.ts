@@ -12,7 +12,23 @@ export class AirlinePerformanceComponent implements OnInit {
   showGraph:boolean = false;
   public barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Months',
+          
+        }
+      }],
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Number of Flight Cancellations',
+          
+        }
+      }]
+    }   
   };
   public barChartLabels = ['January', 'February', 'March', 'April', 'May', 'June'];
   public barChartType: any = 'bar';
