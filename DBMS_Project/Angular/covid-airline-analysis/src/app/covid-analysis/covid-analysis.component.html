@@ -7,9 +7,9 @@
 </p>
 <div style="display: flex;">
 <div style="display: flex; ">
-<h2>Select Year: </h2>
+<h2 style="padding-top: 10px;">Select Year: </h2>
 <mat-form-field appearance="outline">
-    <mat-label  style="height: 10px;">Select a Year</mat-label>
+    <mat-label  style="height: 10px; ">Select a Year</mat-label>
     <mat-select [(value)]="selectedYear" (selectionChange)="changeClient($event)">
       <mat-option *ngFor="let year of years" [value]="year.id">
         {{year.value}}

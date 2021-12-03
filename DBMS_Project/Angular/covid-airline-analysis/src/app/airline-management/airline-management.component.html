@@ -8,7 +8,7 @@
 <div id="lists" style="display: flex;">
 
   <div id="list_one" style="display: flex;">
-    <h2 style="font-family: Times New Roman;"> Month: </h2>
+    <h2 style="font-family: Times New Roman; padding-top: 10px;"> Month: </h2>
     <mat-form-field appearance="outline">
         <mat-label>Select a Month</mat-label>
         <mat-select [(value)]="selectedMonth" (selectionChange)="changeClient($event)">
@@ -32,7 +32,7 @@
 
   </div>
 <div id="list_two" style="display: flex;">
-  <h2 style="font-family: Times New Roman;">Number of airports: </h2>
+  <h2 style="font-family: Times New Roman; padding-top: 10px;">Number of airports: </h2>
   <mat-form-field appearance="outline">
     <mat-label>Select Number of Airports</mat-label>
     <mat-select [(value)]="selectedAirport" (selectionChange)="changeClient($event)">
