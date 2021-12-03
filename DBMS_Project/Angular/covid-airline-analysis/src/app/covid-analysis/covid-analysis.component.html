@@ -1,10 +1,14 @@
 <!--<div class="example-button-row center ">-->
 <!--  <button mat-button [routerLink]="['/home']">BACK</button>-->
 <!--</div>-->
+<p class="h3 button4 text-danger shadow" style="margin-left: 42%;"> 
+  <i class="fas fa-chart-bar icon icon-shape bg-danger text-white rounded-circle shadow" style="padding-right:0.50em;"></i>
+  Covid Analysis
+</p>
 <div style="display: flex;">
 <div style="display: flex; ">
 <h2>Select Year: </h2>
-<mat-form-field appearance="fill">
+<mat-form-field appearance="outline">
     <mat-label  style="height: 10px;">Select a Year</mat-label>
     <mat-select [(value)]="selectedYear" (selectionChange)="changeClient($event)">
       <mat-option *ngFor="let year of years" [value]="year.id">
@@ -17,7 +21,7 @@
     <div style="display: flex; ">
 
     <h3>Select Month: </h3>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label  style="height: 10px;">Select a Month</mat-label>
       <mat-select [(value)]="selectedMonth" (selectionChange)="changeClient($event)">
         <mat-option *ngFor="let month of months" [value]="month.id">
