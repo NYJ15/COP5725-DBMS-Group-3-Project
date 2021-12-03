@@ -296,32 +296,68 @@ for (const value of mySet1 ) {
 app.post('/airline-performance', function (req, res) {
   console.log(req)
   
-  query1 = `SELECT DISTINCT ac.unique_carrier, d.month, count(*) as cancelled_flight
-  FROM "NAYAN.JAIN".Flights f, "NAYAN.JAIN".airline_company ac, "NAYAN.JAIN".dates d
-  WHERE f.fk_airline_id=ac.airline_id and f.cancelled = 1 and d.date_id=f.fk_date_id
-  GROUP BY ac.unique_carrier, d.month
-  order by ac.unique_carrier asc`
+  query1 = `SELECT
+  flight_cancellations.unique_carrier,
+  flight_cancellations.month,
+  num_cases.cases,
+  flight_cancellations.count AS cancellations
+FROM
+       (
+      SELECT DISTINCT
+          ac.unique_carrier,
+          d.month  AS month,
+          COUNT(*) AS count
+      FROM
+          "NAYAN.JAIN".flights         f,
+          "NAYAN.JAIN".airline_company ac,
+          "NAYAN.JAIN".dates           d
+      WHERE
+              f.fk_airline_id = ac.airline_id
+          AND f.cancelled = 1
+          AND d.date_id = f.fk_date_id
+      GROUP BY
+          ac.unique_carrier,
+          d.month
+  ) flight_cancellations
+  JOIN (
+      SELECT
+          SUM(c.cases) cases,
+          d.month      AS month
+      FROM
+          "NAYAN.JAIN".covid_19_case c,
+          "NAYAN.JAIN".dates         d
+      WHERE
+              c.fk_date_id = d.date_id
+          AND year = 2020
+      GROUP BY
+          d.month
+  ) num_cases ON flight_cancellations.month = num_cases.month
+ORDER BY
+  flight_cancellations.month`
   var res1 = dbConnect(query1);
 
   //console.log(res1)
   var airplane ={};
 const mySet1 = new Set()
+const casesSet = new Set()
   res1.then(function(result) {
     // here you can use the result of promiseB
     for (a of result.rows) {
       mySet1.add(a[0]) 
+      casesSet.add(a[2]/50)
   }
   //console.log(mySet1)
   for (const value of mySet1 ) {
       flightfrequency =[]
       for (a of result.rows) {
           if(a[0] == value){
-              flightfrequency.push(a[2]);
+              flightfrequency.push(a[3]);
           }
       }
       airplane[value] = flightfrequency
     }
-    
+    let carray = Array.from(casesSet);
+    airplane["case"] =carray; 
     console.log("Hi",airplane);
     res.send(airplane)
 });  

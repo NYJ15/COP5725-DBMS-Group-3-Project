@@ -42,10 +42,13 @@ export class AirlinePerformanceComponent implements OnInit {
   ngOnInit(): void {
     this.query1dta.airline_performance().subscribe(
       res => {this.resultData = res;
+        this.barChartData.push({data: this.resultData.case, label: 'Covid-19 Cases',fill:false, type:"line"})
         Object.keys(this.resultData).forEach(key => {
-          this.barChartData.push({
-            data: this.resultData[key], label: key,backgroundColor: this.rgbColor[this.ct]
-          })
+          if(key!="case"){
+            this.barChartData.push({
+              data: this.resultData[key], label: key,backgroundColor: this.rgbColor[this.ct]
+            })
+          }
       this.ct = this.ct +1;
   });
   this.showGraph = true;

@@ -18,7 +18,7 @@ export class AirlineManagementComponent implements OnInit {
   resultData:any;
   showGraph: boolean=false;
   selectedMonth ="";
-  selectedAirport=6;
+  selectedAirport=0;
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -77,19 +77,22 @@ export class AirlineManagementComponent implements OnInit {
     }
     this.barChartData =[]
     this.ct = 0;
-    this.query1dta.airline_mgmt(body).subscribe(
-      res => {
-        this.resultData = res;
-        Object.keys(this.resultData).forEach(key => {
+    if(this.selectedAirport>0){
+      this.query1dta.airline_mgmt(body).subscribe(
+        res => {
+          this.resultData = res;
+          Object.keys(this.resultData).forEach(key => {
+  
+            this.barChartData.push({
+              data: this.resultData[key], label: key, fill:false,  borderColor: this.rgbColor[this.ct],
+            })
+        this.ct = this.ct +1
+    });
+          this.showGraph = true;
+        }
+     );
+    }
 
-          this.barChartData.push({
-            data: this.resultData[key], label: key, fill:false,  borderColor: this.rgbColor[this.ct],
-          })
-      this.ct = this.ct +1
-  });
-        this.showGraph = true;
-      }
-   );
   }
   constructor(private query1dta : OracleQuery1ServiceService) { }
 
