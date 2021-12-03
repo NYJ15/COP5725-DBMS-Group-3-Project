@@ -24,7 +24,7 @@ export class CovidImpactComponent implements OnInit {
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'Number of flights / Covid-19 Cases / Covid-19 Vaccinations',
+          labelString: 'Traveler Throughput / Covid-19 Cases / Covid-19 Vaccinations',
           
         }
       }]
@@ -43,7 +43,7 @@ export class CovidImpactComponent implements OnInit {
       res => {
         this.resultData = res;
         this.barChartData = [
-          {data: this.resultData.flight, label: 'Flights', fill:false},
+          {data: this.resultData.flight, label: 'Traveler Throughput', fill:false},
           {data: this.resultData.cases, label: 'Covid-19 Cases',fill:false},
           {data: this.resultData.vaccine, label: 'Covid-19 Vaccines',fill:false}
         ];

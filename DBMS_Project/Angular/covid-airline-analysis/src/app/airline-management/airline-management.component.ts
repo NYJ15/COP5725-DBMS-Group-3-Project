@@ -33,7 +33,7 @@ export class AirlineManagementComponent implements OnInit {
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'Number of Flights',
+          labelString: 'Number of Delayed Flights',
           
         }
       }]
