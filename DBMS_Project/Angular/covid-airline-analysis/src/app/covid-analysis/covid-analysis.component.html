@@ -20,7 +20,7 @@
   <div *ngIf=showMonth>
     <div style="display: flex; ">
 
-    <h3>Select Month: </h3>
+    <h3 style="padding-top: 10px;">Select Month: </h3>
     <mat-form-field appearance="outline">
       <mat-label  style="height: 10px;">Select a Month</mat-label>
       <mat-select [(value)]="selectedMonth" (selectionChange)="changeClient($event)">
